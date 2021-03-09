@@ -9,6 +9,7 @@
 #import simpy
 from time import sleep
 import sys
+import statistics
 
 def Bienvenida():
     Oraciones = "Bienvenido al simulador de programa de uso de colas"
@@ -37,10 +38,23 @@ while var == False:
     opcion = int(input("\n""\033[4m""Elija la opción que quiera:"'\033[m'""))
     if opcion == 1:
         print("Iniciando simulacion...")
+        env = simpy.Environment() # Creation of the simulation
+        env.run(until=10) # run simulation until the process number 10
+    
+        #for i in range():
+            #TiempoTardaEnSimular =
+            #MemoriaDisponible = Queue.Ram
+            #InstruccionesBrindadas = Queue.nFunciones
+            #env.process(algo tiene de argumento)
+            #env.run()
+    
+
     if opcion == 2:
         print("\n")
         Creditos()
+
     if opcion == 3:
         print("Saliendo el programa...")
         print("Gracias por utilizar nuestro programa jeje")
         var = True
+env.process()# generate 
