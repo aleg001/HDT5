@@ -3,58 +3,61 @@
 #Alejandro Gómez 20347
 #Gabriela Contreras 20213
 #Creacion: 7-03-21
-#Ultima Edicion: 7-03-21
+#Ultima Edicion: 9-03-21
 
-
-#import simpy
+import simpy 
+import random 
 from time import sleep
 import sys
-import statistics
-
-def Bienvenida():
-    Oraciones = "Bienvenido al simulador de programa de uso de colas"
-    for char in Oraciones:
-        sleep(0.005)
-        sys.stdout.write(char)
-
-def menu():
-    print("\n","\033[4m","SIMULADOR",'\033[m',"\n")
-    print (" 1. Iniciar simulación", "\n","2. Creditos", "\n", "3. Salir")
-
-def Creditos():
-    print("Creado por:")
-    print("Alejandro Gomez")
-    print("Paola Contreras")
+import Menu as mn
+import Event as event 
 
 
-Bienvenida()
-print("\n")
-
-#Menu
-
+#Attributes 
+opcion=0
 var = False
-while var == False:
-    menu()
-    opcion = int(input("\n""\033[4m""Elija la opción que quiera:"'\033[m'""))
-    if opcion == 1:
-        print("Iniciando simulacion...")
-        env = simpy.Environment() # Creation of the simulation
-        env.run(until=10) # run simulation until the process number 10
-    
-        #for i in range():
-            #TiempoTardaEnSimular =
-            #MemoriaDisponible = Queue.Ram
-            #InstruccionesBrindadas = Queue.nFunciones
-            #env.process(algo tiene de argumento)
-            #env.run()
-    
+mn.menu()
 
+#Cicle of the program 
+while var == False:
+    #Defensive program for an input
+    try:
+        mn.Bienvenida()
+        opcion= input("\n",'\033[4m',"Elija la opcion que quiera: ",'\033[m')
+        opcion= int(opcion)
+
+    except ValueError:
+        mn.Error()
+
+# Availabe Operations  
+    if opcion == 1:
+        mn.Iniciar()
+        mn.menu()
+    
     if opcion == 2:
         print("\n")
-        Creditos()
+        mn.menu()
 
     if opcion == 3:
-        print("Saliendo el programa...")
-        print("Gracias por utilizar nuestro programa jeje")
-        var = True
-env.process()# generate 
+        mn.menu()
+
+    if opcion == 4:
+        mn.menu()
+
+    if opcion == 5:
+        mn.menu()
+
+    if opcion == 6:
+        print("\n")
+        mn.menu()
+        mn.Creditos()
+
+    if opcion == 7:
+        print("\n")
+        mn.Salida()
+        var = True #breaks cicle 
+
+
+
+
+

@@ -11,6 +11,7 @@
 def __init__(self):
     self.__list=[]
 
+#function that add and alement to a stack 
 def add_stack(self, object):
     self.__list.append(object)
 
