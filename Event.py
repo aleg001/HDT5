@@ -9,15 +9,7 @@
 import simpy
 import random as r
 
-#Variables
-#RAM_Max = 25
-#Instrucc = 3
-
-class SYS:
-    #Constructor of SYS 
-    def __init__(self, env):
-        self.RandomAccess = simpy.Container(env, init= RAM_Max, capacity= RAM_Max)
-        self.CentralProccess = simpy.Resource(env, capacity=1)
+#Event class is declared:
 
 class Event:
     #Atributtes 
@@ -26,18 +18,19 @@ class Event:
     #Constructor
     def __init__(self, environment: simpy.Environment, cpu: simpy.Resource, wait: simpy.Resource, ram: simpy.Container):
         
+        #Environment is defined
         self.__ENVIRONMENT = environment
-        
+        #CPU used
         self.__CentralProcessingUnit = cpu
-        
+        #Wait
         self.__Esperar = wait
-        
+        #RAM used
         self.__RandomAccessMemory = ram
-        #Tiempo
+        #Time
         self.__Time = []
-        #Tiempo Total
+        #Total time
         self.__TotalTime = 0
-        
+        #Time in operations
         self.__TimeL = 0
     
     #Functions that works like Getters 
@@ -47,7 +40,7 @@ class Event:
     def getTotalTime(self):
         return self.__TotalTime
 
-    #
+    #All of the processes needed for the simulation
     def ProcesamientoDeInstructions(self, nombre: str, ram: int, instrucciones: int, speed: int):
             
             #Method to give and amount of RAM to a process 
@@ -57,25 +50,28 @@ class Event:
             self.__TimeL = self.__ENVIRONMENT.now
 
             yield self.__RandomAccessMemory.get(ram)
-
+            #Prints for each request made
             print(f"Felicidades {nombre}, su solicitud ha sido aceptada")
             print("La cantidad de RAM: {ram}.")
 
             iTerminadas = 0 #counter 
-            #cycle thata allows the CPU to execute a process 
+            #cycle that allows the CPU to execute a process 
             while iTerminadas < instrucciones:
 
                 with self.__CentralProcessingUnit.request() as request:
                     yield request
-
+                    #If the conditions are less than the speed, then, the number of instructions
+                    #equals the speed it takes.
                     if (instrucciones - iTerminadas) >= speed:
                         nInstrucciones = speed
                     else:
+                        #If it doesn't go with the conditions, it reduces the number
+                        #of instructions with the ones already finished
                         nInstrucciones = (instrucciones - iTerminadas)
 
                     print(f"El CPU se encuenta ejecutando {nInstrucciones} instrucciones.")
                     yield self.__ENVIRONMENT.timeout(nInstrucciones/speed)
-
+                    #Finished instructions are finished
                     iTerminadas += nInstrucciones
                     print(f"{iTerminadas} / {instrucciones} finalizadas.")
                     print("\n")
@@ -92,6 +88,7 @@ class Event:
                         print("Las operaciones de entrada y salida han sido terminadas.")
 
             yield self.__RandomAccessMemory.put(ram)
+            #The ram used by the simulation is showed
             print("\n")
             print(f"RAM utilizada: {ram}")
             self.__TotalTime += (self.__ENVIRONMENT.now - self.__TimeL)
@@ -105,37 +102,16 @@ class Event:
     # functions that return us data useful for the program  
     def name(self):
         return self.eventname
-
+    #Function for the memory
     def memory(self):
         return self.eventmemory
-
+    #Function for instructions
     def instructions(self):
         return self.eventinstructions
-
+    #Function to show it finished
     def terminar(self):
         return self.eventinstructions<= 0
         numer = 0
 
-    #Inatructions for the process 
-    def procesosCorrespondientes(self, env, syso):
-        inicia = env.now
-        self.cT = inicia
-        print("%s El tiempo estimado fue de  %d" %(env, syso))
-        
-        with syso.RAM.get(self.memory) as gRam:
-            yield gRam
-
-        print("Procesando...")
-        print("%s: Tiene esta RAM:  %d Estado: Waiting" %(self.eventname, env.now))
-        while not self.terminarProceso:
-            with syso.CPU.request() as ricues:
-                print("%s: Su CPU se encuentra en %d Estado: Waiting" %(self.eventname, env.now))
-                yield ricues
-                print("%s: Su CPU se encuentra en %d Estado: Running" %(self.eventname, env.now))
-                for i in range(Instrucc):
-                    if self.instructions > 0:
-                        self.instuctions -= 1
-                        nextOperation = r.randint(1,2)
-                yield env.timeout(nextOperation)
-
+ 
 

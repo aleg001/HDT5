@@ -93,6 +93,7 @@ while var == False:
         mn.menu()
 
     if opcion == 2:
+        #Authors of the credits
         mn.Creditos()
         mn.menu()
 
