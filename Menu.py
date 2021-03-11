@@ -3,36 +3,33 @@
 #Alejandro Gómez 20347
 #Gabriela Contreras 20213
 #Creacion: 7-03-21
-#Ultima Edicion: 8-03-21
+#Ultima Edicion: 11-03-21
 
 #Imports  for the functions 
 from time import sleep
 import sys
+import Event
+import statistics
+import simpy
+import random
 
+# Function that gives the welcome to the user 
+def Bienvenida():
+    Oraciones = "Bienvenido al simulador de programa"
+    for char in Oraciones:
+        sleep(0.005)
+        sys.stdout.write(char)
+        
 #Function that contains the menu
 def menu():
-    print("\n","\033[4m","SIMULADOR",'\033[m',"\n")
-    print (" 1. Simulacion con 25 procesos", "\n","2. Simulacion con 50 procesos", "\n", "3. Simulacion 100 procesos","\n","4.Simulacion 150","\n","5.Simulacion 200 procesos","\n","6.Creditos","\n","7.Salir")
+    print("\n",'\033[4m]',"SIMULADOR",'\033[m',"\n")
+    print (" 1. Iniciar Simulacion", "\n","2.Creditos","\n","3.Salir")
 
 #Function that contains the credits of the people that ralized the program 
 def Creditos():
     print("Creado por:")
     print("Alejandro Gomez")
     print("Paola Contreras")
-
-# Function that gives the welcome to the user 
-def Bienvenida():
-    Oraciones = "Bienvenido al simulador de programa de uso de colas"
-    for char in Oraciones:
-        sleep(0.005)
-        sys.stdout.write(char)
-
-# Function that contains the time interval message
-def tiempo():
-    print("\n","\033[4m","Seleccione un intervalo de tiempo",'\033[m',"\n")
-    print ()
-
-
 
 #Funticon that say goodbye to the user 
 def Salida():
